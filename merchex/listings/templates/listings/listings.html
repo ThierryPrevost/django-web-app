@@ -1,0 +1,43 @@
+<!--
+<html>
+    <head><title>Merchex</title></head>
+    <body>
+-->
+{% extends 'listings/base.html' %}
+{% block content %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+            <div
+            {% if message.tags %} class="{{ message.tags }}" role="alert" {% endif %}
+            >
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}Important: {% endif %}
+            {{ message }}
+            </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- <h1>Listings</h1> -->
+    <!-- <p>Liste de merch !</p> -->
+    <h1>Annonces</h1>
+    <a href="{% url 'listings-create' %}">Créer une nouvelle annonce</a>
+    <ul>
+        {% for listing in listings %}
+            <!-- <li>{{ listing.title }}</li> -->
+            <li>
+                <a href="{% url 'listings-detail' listing.id %}">{{ listing.title }}</a>
+                <!--- <a href="{% url 'listings-update' listing.id %}">[Editer]</a> -->
+                - <a href="{% url 'listings-update' listing.id %}"> {% load static %}<img src="{% static 'listings/editer_20x20.png' %}" alt="editer"> </a>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+<!--
+    </body>
+</html>
+-->

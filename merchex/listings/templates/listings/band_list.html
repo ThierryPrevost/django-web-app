@@ -1,0 +1,33 @@
+{% extends 'listings/base.html' %}
+{% block content %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+            <div
+            {% if message.tags %} class="{{ message.tags }}" role="alert" {% endif %}
+            >
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}Important: {% endif %}
+            {{ message }}
+            </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h1>Groupes</h1>
+    <a href="{% url 'band-create' %}">Créer un nouveau groupe</a>
+    <ul>
+        {% for band in bands %}
+            <!-- <li>{{ band.name }}</li> -->
+            <!-- <li><a href="/bands/{{ band.id }}/">{{ band.name }}</a></li> -->
+            <li>
+                <a href="{% url 'band-detail' band.id %}">{{ band.name }}</a>
+                <!-- - <a href="{% url 'band-update' band.id %}">[Editer]</a> -->
+                - <a href="{% url 'band-update' band.id %}"> {% load static %}<img src="{% static 'listings/editer_20x20.png' %}" alt="editer"> </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
